@@ -14,7 +14,7 @@ fi transformat în majuscule și vor fi eliminate spațiile. Utilizatorul va put
 criptare sau decriptare, va putea introduce cheia, mesajul sau criptograma și va obține respectiv
 criptograma sau mesajul decriptat.
 ## Implementation:
-```main.odin
+```odin
 caesar_encode :: proc(input: []string, shift: int) -> (messege: []string) {
 	messege = make([]string, len(input))
 	for letter, i in input {
@@ -34,7 +34,7 @@ messege as an array of strings. In this case each string is just 1 letter.
 Alphabet_map is a global variable:hash-map that maps each letter to an number.
 Alphabet_array is a global variable, it's an array if strings: the letters of the
 english alphabet.
-```main.odin
+```odin
 caesar_decode :: proc(input: []string, shift: int) -> (messege: []string) {
 	messege = make([]string, len(input))
 	for letter, i in input {
@@ -50,7 +50,7 @@ caesar_decode :: proc(input: []string, shift: int) -> (messege: []string) {
 The above procedure does exactly the same thing except the function for getting the
 letter has uses '-' rather then '+'
 
-```main.odin
+```odin
 show_criptogram :: proc(shift: int) {
 
 	top_b: str.Builder
