@@ -264,15 +264,15 @@ transmise colegului, împreună cu cheile respective. Fiecare dintre cei doi va 
 - Cryptogram:
 - Encoded : SUCZEYES
 - Cryptogram:
-
+```
 07 |08 |09 |10 |11 |12 |13 |14 |15 |16 |17 |18 |19 |20 |21 |22 |23 |24 |25 |00 |01 |02 |03 |04 |05 |06 |
-
  C | R | Y | P | T | O | G | A | H | B | D | E | F | I | J | K | L | M | N | Q | S | U | V | W | X | Z |
-
+```
 ## My collegues output:
 
 ## My decryption:
 
 # Source code:
 [Github](https://github.com/BurdujaAdrian/CS_lab1.git)
+
 
