@@ -269,8 +269,48 @@ transmise colegului, împreună cu cheile respective. Fiecare dintre cei doi va 
  C | R | Y | P | T | O | G | A | H | B | D | E | F | I | J | K | L | M | N | Q | S | U | V | W | X | Z |
 
 ## My collegues output:
+```
+------------------------------------------------------------
+Standard alphabet: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Permuted alphabet: CRYPTOGAHBDEFIJKLMNQSUVWXZ
+------------------------------------------------------------
+Ciphertext:       SUCZEYES
+Key 1:            7
+Key 2:            cryptography
+Decrypted text:   NOTSEVEN
+------------------------------------------------------------
+```
+## My collegues input:
+```
+------------------------------------------------------------
+Standard alphabet: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Permuted alphabet: PERMUTADBCFGHIJKLNOQSVWXYZ
+------------------------------------------------------------
+Original text:    ASDFGHJKL
+Key 1:            23
+Key 2:            permutated
+Encrypted text:   XKPRMUADB
+------------------------------------------------------------
+```
 
 ## My decryption:
+```
+1. Encode
+2. Decode
+3. Show criptogram       
+4. Exit
+
+2
+Input messege('A'-'Z','a'-'z' and ' '): XKPRMUADB
+
+Input key('A'-'Z','a'-'z', len >= 7):permuted
+
+Input shift(0-25): 23
+
+Decoded string obtained: 
+ASDFGHKJL
+
+```
 
 # Source code:
 [Github](https://github.com/BurdujaAdrian/CS_lab1.git)
