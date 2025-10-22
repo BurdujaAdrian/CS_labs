@@ -4,6 +4,10 @@
 
 ## Theory
 
+The Playfair cipher or Playfair square or Wheatstone–Playfair cipher is a manual symmetric encryption technique and was the first literal digram substitution cipher. The scheme was invented in 1854 by Charles Wheatstone, but bears the name of Lord Playfair for promoting its use.
+
+The technique encrypts pairs of letters (bigrams or digrams), instead of single letters as in the simple substitution cipher and rather more complex Vigenère cipher systems then in use. The Playfair cipher is thus significantly harder to break since the frequency analysis used for simple substitution ciphers does not work with it. The frequency analysis of bigrams is possible, but considerably more difficult. With 600[1] possible bigrams rather than the 26 possible monograms (single symbols, usually letters in this context), a considerably larger cipher text is required in order to be useful.
+
 ## Task:
  De implementat algoritmul Playfair în unul din limbajele de programare pentru
 mesaje în limba română (31 de litere). Valorile caracterelor textului sunt cuprinse între ‘A’
@@ -121,9 +125,20 @@ Input key('A'-'Z','a'-'z', len >= 7):adriannnnnnn
 
 Decoded string obtained:
 HELXLOFROMMOLDOVAX
-
-
 ```
+
+## Conclusion
+This laboratory successfully implemented the Playfair cipher algorithm for the 
+Romanian language. The solution handles the 31-letter Romanian alphabet by converting
+all input to uppercase and substituting 'Î' with 'Â' to create a 5×6 grid. The 
+program validates user input for both message and key, ensures proper key length, and
+supports both encryption and decryption operations. The implementation correctly 
+processes digraphs according to Playfair rules, with manual user intervention for 
+handling duplicate letters and padding odd-length messages. The algorithm demonstrate
+s proper cipher functionality through its encryption/decryption cycles, producing 
+expected results while maintaining the security characteristics of the classical 
+Playfair cipher.
+
 
 # Source code:
 [Github](https://github.com/BurdujaAdrian/CS_lab1.git)
