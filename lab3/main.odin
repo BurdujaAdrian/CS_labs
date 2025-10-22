@@ -129,6 +129,27 @@ main :: proc() {
 
 		case "3", "exit", "Exit":
 			os.exit(0)
+		case "criptogram":
+			fmt.print("\nInput key('A'-'Z','a'-'z', len >= 7):")
+
+			key: []string
+			ok: bool
+			key, ok = take_input_cript()
+
+			if !ok {
+				fmt.println("\nKey is invalid, it doesn't fit the range of characters,try again")
+				continue loop
+			}
+
+			if len(key) < 7 {
+				fmt.println("\nLength of key is too short, try again")
+				continue loop
+			}
+			alphabet2_map, alphabet2_array := key_alf(key)
+			for letter, i in alphabet2_array {
+				if i % 5 == 0 do fmt.println()
+				fmt.print(letter)
+			}
 		case:
 			fmt.println("Invalid input,try again")
 		}
