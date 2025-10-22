@@ -239,8 +239,8 @@ pf_encode :: proc(input, key: []string) -> []string {
 			messege[i - 1] = alphabet2_array[new_index_b]
 
 		case col_a == col_b:
-			new_index_a := ((row_a + 1) % 5) * 5 + col_a
-			new_index_b := ((row_b + 1) % 5) * 5 + col_b
+			new_index_a := ((row_a + 1) % 6) * 5 + col_a
+			new_index_b := ((row_b + 1) % 6) * 5 + col_b
 
 			messege[i - 2] = alphabet2_array[new_index_a]
 			messege[i - 1] = alphabet2_array[new_index_b]
@@ -277,8 +277,8 @@ pf_decode :: proc(input, key: []string) -> []string {
 			messege[i - 1] = alphabet2_array[new_index_b]
 
 		case col_a == col_b:
-			new_index_a := ((row_a - 1 + 5) % 5) * 5 + col_a
-			new_index_b := ((row_b - 1 + 5) % 5) * 5 + col_b
+			new_index_a := ((row_a - 1 + 6) % 6) * 5 + col_a
+			new_index_b := ((row_b - 1 + 6) % 6) * 5 + col_b
 
 			messege[i - 2] = alphabet2_array[new_index_a]
 			messege[i - 1] = alphabet2_array[new_index_b]
