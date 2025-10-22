@@ -106,6 +106,13 @@ haP is probably has
 cryptanalysis"
 Also k is the last letter anyways.
 
+# Conclusion:
+In conclusion, as a result of realizing this laboratory, I have learned how to decypher any cypher that is
+done by simply changing one letter of the alphabet to another, by exploating the natural frequency of appearance
+of letters in the English language. By looking at the number of the letters in the text, I matched them with 
+the probability in english and swapped them. While analyzing the output, I started detecting patterns of letters
+that form sensible english frases only if a particular letter is substituted. By continuing this process I have decoded the text.
+
 ## Decoded text:
 riverbank publication no. 22, written in 1920 when friedman was28, must be regarded as the most 
 important single publication incryptology. it took the science into a new world. entitled 
