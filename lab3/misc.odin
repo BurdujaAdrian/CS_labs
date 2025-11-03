@@ -1,10 +1,12 @@
 package main
 import "base:intrinsics"
+import "base:runtime"
 import "core:fmt"
 import "core:math"
 import "core:os"
 import "core:path/filepath"
 import "core:slice"
+import "core:sys/windows"
 
 nop :: #force_inline proc(_: ..any) {}
 
@@ -33,6 +35,58 @@ take_input :: proc() -> (out: string) {
 	out = auto_cast slice.clone(buffer[:input_n - 2])
 
 	return
+}
+@(init)
+init_handler :: proc "contextless" () {
+	context = runtime.default_context()
+
+	windows.AddVectoredExceptionHandler(1, exception_handler)
+}
+
+exception_handler :: proc "std" (ep: ^windows.EXCEPTION_POINTERS) -> i32 {
+	context = runtime.default_context()
+
+	switch ep.ExceptionRecord.ExceptionCode {
+	case windows.EXCEPTION_DATATYPE_MISALIGNMENT:
+		fmt.eprintfln("<DATATYPE_MISALIGNMENT>")
+		when ODIN_DEBUG do fmt.eprintfln(
+			"%#v %x",
+			ep.ExceptionRecord,
+			ep.ExceptionRecord.ExceptionCode,
+		)
+	case windows.EXCEPTION_ACCESS_VIOLATION:
+		fmt.eprintfln("<ACCESS_VIOLATION>")
+		when ODIN_DEBUG do fmt.eprintfln(
+			"%#v %x",
+			ep.ExceptionRecord,
+			ep.ExceptionRecord.ExceptionCode,
+		)
+	case windows.EXCEPTION_ILLEGAL_INSTRUCTION:
+		fmt.eprintfln("<ILLEGAL_INSTRUCTION>")
+		when ODIN_DEBUG do fmt.eprintfln(
+			"%#v %x",
+			ep.ExceptionRecord,
+			ep.ExceptionRecord.ExceptionCode,
+		)
+	case windows.EXCEPTION_STACK_OVERFLOW:
+		fmt.eprintfln("<STACK_OVERFLOW>")
+
+		when ODIN_DEBUG do fmt.eprintfln(
+			"%#v %x",
+			ep.ExceptionRecord,
+			ep.ExceptionRecord.ExceptionCode,
+		)
+
+	case:
+		fmt.eprintfln(
+			"Unknows exception %#v\n %#v\n %x\n",
+			ep,
+			ep.ExceptionRecord,
+			ep.ExceptionRecord.ExceptionCode,
+		)
+	}
+
+	return windows.EXCEPTION_CONTINUE_SEARCH
 }
 
 @(private)
