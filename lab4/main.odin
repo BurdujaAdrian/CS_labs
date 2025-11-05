@@ -2,10 +2,31 @@ package main
 
 import "core:fmt"
 import "core:math/rand"
+import os "core:os/os2"
+import "core:strconv"
 import "core:testing"
 
 main :: proc() {
-	DES(rand.uint64(), rand.uint64())
+	buffer: [1024]u8
+	fmt.println("Introdu numarul de criptat")
+	_, _ = os.read(os.stdin, buffer[:])
+
+	data, ok := strconv.parse_u64_of_base(string(buffer[:63]), 2)
+	if !ok {
+		fmt.eprintfln("Failed to pars binary number")
+		os.exit(1)
+	}
+
+
+	fmt.println("Introdu cheia de criptat")
+	_, _ = os.read(os.stdin, buffer[:])
+	key, ok2 := strconv.parse_u64_of_base(string(buffer[:63]), 2)
+	if !ok2 {
+		fmt.eprintfln("Failed to pars binary number")
+		os.exit(1)
+	}
+
+	DES(data, key)
 }
 
 DES :: proc(data: u64, key: u64) -> (res: u64) {
@@ -31,7 +52,6 @@ cipher :: proc(R: u32, key: u64) -> u32 {return 0}
 
 permute :: proc(data: $T, perms: []u8) -> (res: T) {
 	for permutation, i in perms {i := u8(i)
-
 		read_mask: T = 1 << (permutation - 1)
 		// pos 1 is the first bit, 63 is the biggest number in the permutation arrray
 		bit := data & read_mask

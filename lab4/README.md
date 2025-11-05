@@ -120,10 +120,29 @@ the key schedule.
 
 ```odin
 main :: proc() {
-	DES(rand.uint64(), rand.uint64())
+	buffer: [1024]u8
+	fmt.println("Introdu numarul de criptat")
+	_, _ = os.read(os.stdin, buffer[:])
+
+	data, ok := strconv.parse_u64_of_base(string(buffer[:63]), 2)
+	if !ok {
+		fmt.eprintfln("Failed to pars binary number")
+		os.exit(1)
+	}
+
+
+	fmt.println("Introdu cheia de criptat")
+	_, _ = os.read(os.stdin, buffer[:])
+	key, ok2 := strconv.parse_u64_of_base(string(buffer[:63]), 2)
+	if !ok2 {
+		fmt.eprintfln("Failed to pars binary number")
+		os.exit(1)
+	}
+
+	DES(data, key)
 }
 ```
-The main program just calling the above procedure
+In the main program the user can submit both the key and the data to encrypt.
 
 ## Demo output:
 ```
