@@ -55,6 +55,7 @@ class PKISystem:
         
         self.private_dir = self.ca_dir / "private"
         self.certs_dir = self.ca_dir / "certs"
+        self.new_certs_dir = self.ca_dir / "newcerts"
         self.crl_dir = self.ca_dir / "crl"
         
         self.ca_key = self.private_dir / "ca.key"
@@ -73,6 +74,7 @@ class PKISystem:
             self.ca_dir,
             self.private_dir,
             self.certs_dir,
+            self.new_certs_dir,
             self.crl_dir,
             self.users_dir,
             self.docs_dir
@@ -94,6 +96,7 @@ default_ca = CA_default
 [ CA_default ]
 dir = {self.ca_dir.as_posix()}
 database = {self.index_file.as_posix()}
+new_certs_dir = {self.new_certs_dir.as_posix()}
 certificate = {self.ca_cert.as_posix()}
 serial = {self.serial_file.as_posix()}
 private_key = {self.ca_key.as_posix()}
