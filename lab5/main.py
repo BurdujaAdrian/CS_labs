@@ -141,7 +141,9 @@ emailAddress = optional
         self.run_openssl_command(cmd)
         
         print("Generating self-signed CA certificate (3650 days)...")
-        cmd = f'openssl req -new -x509 -days 3650 -key {self.ca_key} -out {self.ca_cert} -subj "/C=US/ST=State/L=City/O=Organization/CN=Root CA"'
+        cmd = f'openssl req -new -x509 -days 3650 \
+                            -key {self.ca_key} -out {self.ca_cert} \
+                            -subj "/C=US/ST=State/L=City/O=Organization/CN=Root CA"'
         self.run_openssl_command(cmd)
         
         print(f"CA setup complete!")

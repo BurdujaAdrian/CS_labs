@@ -22,55 +22,6 @@ expiration period for its self-signed certificate must be 10 years (3650 days).
 ## Implementation:
 The implementation is a simple json script that is a cli tool:
 ```py
-import sys
-import subprocess
-from pathlib import Path
-
-def print_help():
-    print('''
-0. help
-    Prints the message below
-
-1. setup-ca
-   Setup Certificate Authority with 4096-bit RSA key and self-signed certificate
-   valid for 3650 days (10 years).
-   
-   Example: python main.py setup-ca
-
-2. issue-cert <username>
-   Issue a new user certificate with 2048-bit RSA private key valid for 365 days.
-   Creates private key and certificate.
-   
-   Example: python main.py issue-cert alice
-
-3. revoke-cert <username>
-   Revoke a user certificate and update the Certificate Revocation List (CRL).
-   
-   Example: python main.py revoke-cert bob
-
-4. sign <username> <document>
-   Sign a document using the specified user's private key. Generates a digital
-   signature file using SHA-256 with RSA.
-   
-   Example: python main.py sign alice document.txt
-
-5. verify <username> <document> <signature>
-   Verify a document signature using the user's certificate.
-   Checks both signature validity and certificate revocation status.
-   
-   Example: python main.py verify alice document.txt signature.sig
-
-6. ca-info
-   Display detailed information about the Certificate Authority certificate.
-   
-   Example: python main.py ca-info
-
-7. list-users
-   List all issued user certificates with their current status (VALID/REVOKED).
-   
-   Example: python main.py list-users
-    ''')
-
 class PKISystem:
     def __init__(self, base_dir="./pki"):
         self.base_dir = Path(base_dir)
@@ -138,8 +89,7 @@ emailAddress = optional
     
     def run_openssl_command(self, cmd, check=True):
         try:
-            result = subprocess.run(cmd, shell=True, check=check, 
-                                  capture_output=True, text=True)
+            result = subprocess.run(cmd, shell=True, check=check, capture_output=True, text=True)
             return result
         except subprocess.CalledProcessError as e:
             print(f"OpenSSL command failed: {e}")
@@ -152,8 +102,7 @@ emailAddress = optional
         cmd = f"openssl genrsa -out {self.ca_key} 4096"
         self.run_openssl_command(cmd)
         print("Generating self-signed CA certificate (3650 days)...")
-        cmd = f'openssl req -new -x509 -days 3650 -key {self.ca_key} -out {self.ca_cert} -subj "/C=US/ST=State/L=City/O=Organization/CN=Root CA"'
-        self.run_openssl_command(cmd)
+        cmd = f'openssl req -new -x509 -days 3650 \ -key {self.ca_key} -out {self.ca_cert} \ -subj "/C=US/ST=State/L=City/O=Organization/CN=Root CA"' self.run_openssl_command(cmd)
         print(f"CA setup complete!")
         print(f"CA private key: {self.ca_key}")
         print(f"CA certificate: {self.ca_cert}")
@@ -174,6 +123,7 @@ emailAddress = optional
         print("Generating user private key (2048 bits)...")
         cmd = f"openssl genrsa -out {user_key} 2048"
         self.run_openssl_command(cmd)
+        
         print("Generating certificate signing request...")
         subject = f"/C=US/ST=State/L=City/O=Organization/CN={user_name}"
         cmd = f'openssl req -new -key {user_key} -out {user_csr} -subj "{subject}"'
@@ -311,9 +261,7 @@ def main():
         pki.verify_signature(username, document, signature)
     elif arg == 'ca-info': pki.display_ca_info()
     elif arg == 'list-users': pki.list_users()
-
     elif arg == "help": print_help()
-
     else:
         print("Unknown command")
         print_help()
@@ -322,7 +270,7 @@ if __name__ == "__main__": main()
 ```
 
 ## Demo output:
-```bash
+```
 ====================================
 PKI System Test Script
 ====================================
@@ -342,29 +290,27 @@ Certificate:
     Data:
         Version: 3 (0x2)
         Serial Number:
-            05:b1:43:57:e6:a3:61:b2:fe:40:80:5c:49:69:ad:08:06:52:75:50
+            29:32:8c:1a:01:ce:ed:c5:08:e3:3f:0d:9c:c5:9e:6b:8d:00:30:18
         Signature Algorithm: sha256WithRSAEncryption
         Issuer: C=US, ST=State, L=City, O=Organization, CN=Root CA
         Validity
-            Not Before: Nov 24 10:23:03 2025 GMT
-            Not After : Nov 22 10:23:03 2035 GMT
+            Not Before: Nov 25 18:21:09 2025 GMT
+            Not After : Nov 23 18:21:09 2035 GMT
         Subject: C=US, ST=State, L=City, O=Organization, CN=Root CA
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
                 Public-Key: (4096 bit)
-                Modulus:
-                    # Value ommited
+                Modulus: # value omited
                 Exponent: 65537 (0x10001)
         X509v3 extensions:
             X509v3 Subject Key Identifier: 
-                0E:AC:B6:F5:3C:2C:2F:6B:E8:DF:83:EE:7B:DB:82:3E:DB:99:00:08
+                FC:FA:B1:3C:4E:13:00:4A:FD:77:25:8A:A7:D1:AC:E6:37:AF:26:1C
             X509v3 Authority Key Identifier: 
-                0E:AC:B6:F5:3C:2C:2F:6B:E8:DF:83:EE:7B:DB:82:3E:DB:99:00:08
+                FC:FA:B1:3C:4E:13:00:4A:FD:77:25:8A:A7:D1:AC:E6:37:AF:26:1C
             X509v3 Basic Constraints: critical
                 CA:TRUE
     Signature Algorithm: sha256WithRSAEncryption
-    Signature Value:
-        # Value ommited
+    Signature Value: # value omited
 PASSED
 
 [TEST 3] Issuing certificate for alice...
