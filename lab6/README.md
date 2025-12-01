@@ -246,3 +246,7 @@ guarantees of message authenticity and integrity. The work highlighted the pract
 differences between RSA and ElGamal approaches, with RSA being directly supported by
 standard cryptographic libraries while ElGamal required manual implementation of the
 underlying mathematical operations.
+
+# Source code:
+[Github](https://github.com/BurdujaAdrian/CS_lab1.git)
+
